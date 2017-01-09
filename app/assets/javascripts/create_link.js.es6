@@ -4,8 +4,23 @@ $(document).ready(function(){
   $newLinkTitle = $("#link-title");
   $newLinkUrl  = $("#link-url");
 
+  addLinks();
+
   $("#new-link").on('submit', createLink);
 })
+
+function addLinks() {
+  $.getJSON("/api/v1/links")
+  .then(function(allLinks){
+    allLinks.forEach(renderLink);
+  })
+  // .then(attachDeleteEvent)
+  // .then(attachEditEvent)
+  // .then(attachQualityEvents)
+  // .then(attachSearchEvent)
+  // .fail(displayFailure)
+}
+
 
 function createLink (event){
   event.preventDefault();
