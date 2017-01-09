@@ -14,6 +14,7 @@ RSpec.feature "Users can sign up and login" do
     click_on "Submit"
     # Upon submitting this information, I should be logged in via a session cookie and redirected to the "Links Index" page.
     expect(current_path).to eq('/')
+    expect(page).to have_content('Account Created!')
   end
 
   # I cannot sign up with an email address that has already been used.
@@ -30,6 +31,7 @@ RSpec.feature "Users can sign up and login" do
     click_on "Submit"
 
     expect(current_path).to eq('/')
+    expect(page).to have_content('Successfully Logged in!')
     # As an authenticated user viewing the index page, I should see a link to "Sign Out" and not see a link to "Sign In".
     expect(page).to have_link("Sign Out")
     expect(page).to_not have_link("click here to Login")
