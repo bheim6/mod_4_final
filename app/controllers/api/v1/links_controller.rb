@@ -1,11 +1,10 @@
 class Api::V1::LinksController < ApplicationController
 
   def index
-    if current_user.links == nil
-    else
+    if current_user
       @links = current_user.links.order(id: :asc)
+      render json: @links
     end
-    render json: @links
   end
 
   def create
