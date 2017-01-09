@@ -27,7 +27,7 @@ function getLinkData() {
 }
 
 function renderLink(link){
-  $("#links-list").append( linkHTML(link) )
+  $("#links-list").prepend( linkHTML(link) )
   clearLink();
 }
 
