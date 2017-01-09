@@ -14,8 +14,8 @@ function addLinks() {
   .then(function(allLinks){
     allLinks.forEach(renderLink);
   })
+  .then(attachEditEvent)
   // .then(attachDeleteEvent)
-  // .then(attachEditEvent)
   // .then(attachQualityEvents)
   // .then(attachSearchEvent)
   // .fail(displayFailure)
@@ -31,6 +31,7 @@ function createLink (event){
 
   $.post("/api/v1/links", link)
    .then( renderLink )
+   .then( attachEditEvent )
    .fail( displayFailure )
  }
 
@@ -52,7 +53,7 @@ function linkHTML(link) {
               Title:
               <p class='link-title'>${ link.title }</p>
               Url:
-              <a href="${link.url}" target="_blank">${link.url}</a>
+              <p class='link-url'>${ link.url }</p>
               <p>Read?</p>
               <p class="link_read">
                 ${ link.read }
@@ -63,20 +64,7 @@ function linkHTML(link) {
                 <button class='delete-link'>Delete</button>
               </p>
             </div>`
-            //
-            // `<div class='link' data-id='${link.id}' id="link-${link.id}">
-            //   Title:
-            //   <p class='link-title' contenteditable=true>${ link.title }</p>
-            //   Url:
-            //   <div class="link_buttons">
-            //   <a href="${link.url}" target="_blank">${link.url}</a>
-            //   <p class="mark-as">${ markAs }</p>
-            //     <button class="read-button">*</button>
-            //     Read? -
-            //     <span class="link_read">${ link.read }</span>
-            //     <button class='delete-link'>Delete</button>
-            //   </div>
-            // </div>`
+            // <a href="${link.url}" class='link-url' target="_blank">${link.url}</a>
 }
 
 function clearLink() {
