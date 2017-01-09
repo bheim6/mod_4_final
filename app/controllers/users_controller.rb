@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       redirect_to :root
       flash[:success] = "Account Created!"
     else
-      flash[:danger] = ""
+      flash[:danger] = "#{user.errors.full_messages}"
       redirect_to :signup
     end
   end

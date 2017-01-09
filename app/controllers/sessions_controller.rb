@@ -8,9 +8,12 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to :root
       flash[:success] = "Successfully Logged in!"
-    else
-      flash[:danger] = "Unsuccessful, Please try again!"
+    elsif user
+      flash[:danger] = "Password is incorrect for this email, please try again"
       redirect_to :login
+    elsif
+    flash[:danger] = "User email does not exist, please create account or try again"
+    redirect_to :login
     end
   end
 
