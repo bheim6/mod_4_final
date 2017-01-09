@@ -4,7 +4,6 @@ RSpec.feature "Users can sign up and login" do
   scenario "unauthenticated users are redirected to sign up and can create account" do
     # As an unauthenticated user, when I visit the root of the application, /,
     visit '/'
-    # binding.pry
     # I should be redirected to a page which prompts me to "Log In or Sign Up".
     expect(current_path).to eq('/signup')
 
@@ -44,8 +43,8 @@ RSpec.feature "Users can sign up and login" do
     # Upon submitting this information, I should be logged in via a session cookie and redirected to the "Links Index" page.
     expect(page).to have_content("Password confirmation doesn't match Password")
   end
-  # If criteria is not met the user should be given a message to reflect the reason they could not sign up.
 
+  # If criteria is not met the user should be given a message to reflect the reason they could not sign up.
   scenario "fields cannot be blank" do
     visit '/'
     # I should be redirected to a page which prompts me to "Log In or Sign Up".
