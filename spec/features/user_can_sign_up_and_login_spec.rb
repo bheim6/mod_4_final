@@ -23,7 +23,7 @@ RSpec.feature "Users can sign up and login" do
   scenario "authenticated users can log in and then sign out" do
     user1 = create(:user)
     visit '/'
-    click_on "Already have account? click here to Login"
+    click_on "click here to Login"
     expect(current_path).to eq('/login')
     fill_in "Email", with: "example@example.com"
     fill_in "Password", with: user1.password
@@ -37,6 +37,6 @@ RSpec.feature "Users can sign up and login" do
     click_link "Sign Out"
     # This should redirect me back to the root of the application where I should see a link to "Log In".
     expect(current_path).to eq('/signup')
-    expect(page).to have_link('Already have account? click here to Login')
+    expect(page).to have_link('click here to Login')
   end
 end
