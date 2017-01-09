@@ -32,7 +32,7 @@ RSpec.feature "Users can sign up and login" do
     expect(current_path).to eq('/')
     # As an authenticated user viewing the index page, I should see a link to "Sign Out" and not see a link to "Sign In".
     expect(page).to have_link("Sign Out")
-    expect(page).to_not have_link("Sign In")
+    expect(page).to_not have_link("click here to Login")
 
     click_link "Sign Out"
     # This should redirect me back to the root of the application where I should see a link to "Log In".
