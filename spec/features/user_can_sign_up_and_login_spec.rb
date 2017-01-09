@@ -81,4 +81,28 @@ RSpec.feature "Users can sign up and login" do
     expect(current_path).to eq('/signup')
     expect(page).to have_link('click here to Login')
   end
+
+  scenario "authenticated users get error message if wrong email" do
+    user1 = create(:user)
+    visit '/'
+    click_on "click here to Login"
+    expect(current_path).to eq('/login')
+    fill_in "Email", with: "bob@example.com"
+    fill_in "Password", with: user1.password
+    click_on "Submit"
+
+    expect(page).to have_content('User email does not exist, please create account or try again')
+  end
+
+  scenario "authenticated users get error message if wrong password" do
+    user1 = create(:user)
+    visit '/'
+    click_on "click here to Login"
+    expect(current_path).to eq('/login')
+    fill_in "Email", with: "example@example.com"
+    fill_in "Password", with: "poo"
+    click_on "Submit"
+
+    expect(page).to have_content('Password is incorrect for this email, please try again')
+  end
 end
