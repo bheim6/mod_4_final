@@ -12,7 +12,6 @@ class Api::V1::LinksController < ApplicationController
     if @link.save
       render json: @link, status: 201
     else
-      # flash[:message] = "#{@link.errors.full_messages}"
       render json: @link.errors.full_messages, status: 500
     end
   end
@@ -22,6 +21,7 @@ class Api::V1::LinksController < ApplicationController
     @link.assign_attributes link_params
     just_read = @link.read_changed? && @link.read
     if @link.save
+      render json: @link if @link.update(link_params)
       Read.create(link: @link) if just_read
       head :no_content
     else
@@ -32,6 +32,6 @@ class Api::V1::LinksController < ApplicationController
   private
 
   def link_params
-    params.permit(:title, :url, :read)
+    params.permit(:title, :url, :read, :id)
   end
 end

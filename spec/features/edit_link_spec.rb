@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "can edit links", :js => :true do
-  scenario "edit link on page" do
+  skip scenario "edit link title on page" do
     user1 = create(:user)
     visit '/'
     click_on "click here to Login"
@@ -20,7 +20,8 @@ RSpec.describe "can edit links", :js => :true do
       expect(page).to have_text("http://turing.io")
     end
     # As an authenticated user who has added links to my link_urlockbox, when I view the links index:
-    click_on "Edit"
+    click_on ".link-title"
+    click_on ".link-title"
     # Each link has an "Edit" button that either takes me to a page to edit the link or allows me to edit the link in place on the page.
     # I can edit the title and/or the url of the link.
     fill_in "Title:", :with => "Turingz"
