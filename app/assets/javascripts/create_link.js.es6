@@ -63,6 +63,7 @@ function linkHTML(link) {
                 <button class='edit-link'>Edit</button>
                 <button class='delete-link'>Delete</button>
               </p>
+              *To edit link, double click on either title or url, changes are confirmed when clicking outside the text*
             </div>`
             // <a href="${link.url}" class='link-url' target="_blank">${link.url}</a>
 }
