@@ -1,4 +1,3 @@
-<h1>URLockbox - Links Index!</h1>
 <p>
   <% if current_user %>
     Welcome:
@@ -6,6 +5,8 @@
     <%= link_to "Sign Out", logout_path, method: "delete" %><br />
   <% end %>
 </p>
+<h1>URLockbox - Links Index!</h1>
+<h3>Add a new Link to the List</h3>
 <form id="new-link">
   <label>URL:
     <input id="link-url">
@@ -16,6 +17,7 @@
   <input type="submit" value="Add Link">
 </form>
 
+<h3>Check out those links!</h3>
 <div id="links-list"></div>
 
 <h2>Hot Reads!</h2>
