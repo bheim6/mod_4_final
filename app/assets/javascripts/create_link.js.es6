@@ -134,7 +134,7 @@ function updateRead(read, id, title, url) {
 
   if (read === "true") {
     $.post({
-      url: 'http://bheim6-hot-reads-final.herokuapp.com/add_read',
+      url: 'https://bheim6-hot-reads-final.herokuapp.com/add_read',
       data: {
         title: title,
         url: url
