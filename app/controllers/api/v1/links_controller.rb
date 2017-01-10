@@ -1,5 +1,5 @@
 class Api::V1::LinksController < ApplicationController
-  # skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   def index
     if current_user
