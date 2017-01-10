@@ -50,7 +50,7 @@ function linkHTML(link) {
 
   var markAs;
   var read = link.read;
-  if (read === "true") {
+  if (read === true) {
     markAs = "Mark as Unread"
   } else {
     markAs = "Mark as Read"
