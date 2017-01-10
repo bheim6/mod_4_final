@@ -104,11 +104,11 @@ function readChange(link) {
   $(parent).find('.link_read').text(read);
   $(this).text(markAs);
 
-  // if (read === "true") {
-  //   $(parent).find('.link-url').text().css("text-decoration","line-through");
-  // } else {
-  //   $(parent).find('.link-url').text().css("text-decoration","none");
-  // }
+  if (read === "true") {
+    $(parent).find('.link-url').css("text-decoration","line-through");
+  } else {
+    $(parent).find('.link-url').css("text-decoration","none");
+  }
 
   updateRead(read, id, title, url);
 }
