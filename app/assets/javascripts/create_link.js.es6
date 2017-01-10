@@ -50,7 +50,7 @@ function linkHTML(link) {
 
   var markAs;
   var read = link.read;
-  if (read === "true") {
+  if (read === true) {
     markAs = "Mark as Unread"
   } else {
     markAs = "Mark as Read"
@@ -120,15 +120,15 @@ function updateRead(read, id, title, url) {
     data: {read: read}
   })
 
-  // if (read === "true") {
-  //   console.log("reading true")
-  //   $.post({
-  //     url: 'http://localhost:3001/add_read',
-  //     data: {
-  //       title: title,
-  //       url: url
-  //     },
-  //     dataType: 'jsonp'
-  //   })
-  // }
+  if (read === "true") {
+    console.log("reading true")
+    $.post({
+      url: 'http://localhost:3001/add_read',
+      data: {
+        title: title,
+        url: url
+      },
+      dataType: 'jsonp'
+    })
+  }
 }
