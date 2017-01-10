@@ -131,4 +131,15 @@ function updateRead(read, id, title, url) {
       dataType: 'jsonp'
     })
   }
+
+  if (read === "true") {
+    $.post({
+      url: 'http://bheim6-hot-reads-final.herokuapp.com/add_read',
+      data: {
+        title: title,
+        url: url
+      },
+      dataType: 'jsonp'
+    })
+  }
 }
