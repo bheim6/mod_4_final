@@ -16,10 +16,7 @@ function addLinks() {
   })
   .then(attachEditEvent)
   .then( attachReadEvents )
-  // .then(attachDeleteEvent)
-  // .then(attachQualityEvents)
-  // .then(attachSearchEvent)
-  // .fail(displayFailure)
+  .fail( displayFailure )
 }
 
 
@@ -73,7 +70,6 @@ function linkHTML(link) {
               </p>
               *To edit link, double click on either title or url, changes are confirmed when clicking outside the text*
             </div>`
-            // <a href="${link.url}" class='link-url' target="_blank">${link.url}</a>
 }
 
 function clearLink() {
@@ -104,15 +100,15 @@ function readChange(link) {
   var markAs = $(this).text();
   if (markAs === "Mark as Read") {markAs = "Mark as Unread"}
   else if (markAs === "Mark as Unread") {markAs = "Mark as Read"}
-  // debugger
 
-  $(this).siblings("span").text(read);
-  $(this).siblings("p").text(markAs);
-  if (read === "true") {
-    $(this).siblings("a").css("text-decoration","line-through");
-  } else {
-    $(this).siblings("a").css("text-decoration","none");
-  }
+  $(parent).find('.link_read').text(read);
+  $(this).text(markAs);
+
+  // if (read === "true") {
+  //   $(parent).find('.link-url').text().css("text-decoration","line-through");
+  // } else {
+  //   $(parent).find('.link-url').text().css("text-decoration","none");
+  // }
 
   updateRead(read, id, title, url);
 }
@@ -121,18 +117,18 @@ function updateRead(read, id, title, url) {
   $.ajax({
     url: `/api/v1/links/${id}`,
     method: 'put',
-    data: {link: {read: read}}
+    data: {read: read}
   })
 
-  if (read === "true") {
-    console.log("reading true")
-    $.post({
-      url: 'http://localhost:3001/add_read',
-      data: {
-        title: title,
-        url: url
-      },
-      dataType: 'jsonp'
-    })
-  }
+  // if (read === "true") {
+  //   console.log("reading true")
+  //   $.post({
+  //     url: 'http://localhost:3001/add_read',
+  //     data: {
+  //       title: title,
+  //       url: url
+  //     },
+  //     dataType: 'jsonp'
+  //   })
+  // }
 }
