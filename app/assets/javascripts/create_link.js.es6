@@ -119,18 +119,18 @@ function updateRead(read, id, title, url) {
     method: 'put',
     data: {read: read}
   })
-
-  if (read === "true") {
-    console.log("reading true")
-    $.post({
-      url: 'http://localhost:3001/add_read',
-      data: {
-        title: title,
-        url: url
-      },
-      dataType: 'jsonp'
-    })
-  }
+  //
+  // if (read === "true") {
+  //   console.log("reading true")
+  //   $.post({
+  //     url: 'http://localhost:3001/add_read',
+  //     data: {
+  //       title: title,
+  //       url: url
+  //     },
+  //     dataType: 'jsonp'
+  //   })
+  // }
 
   if (read === "true") {
     $.post({
