@@ -15,10 +15,8 @@ function addLinks() {
     allLinks.forEach(renderLink);
   })
   .then(attachEditEvent)
-  // .then(attachDeleteEvent)
-  // .then(attachQualityEvents)
-  // .then(attachSearchEvent)
-  // .fail(displayFailure)
+  .then( attachReadEvents )
+  .fail( displayFailure )
 }
 
 
@@ -32,6 +30,7 @@ function createLink (event){
   $.post("/api/v1/links", link)
    .then( renderLink )
    .then( attachEditEvent )
+   .then( attachReadEvents )
    .fail( displayFailure )
  }
 
@@ -49,22 +48,28 @@ function renderLink(link){
 
 function linkHTML(link) {
 
+  var markAs;
+  var read = link.read;
+  if (read === "true") {
+    markAs = "Mark as Unread"
+  } else {
+    markAs = "Mark as Read"
+  };
+
     return `<div class='link' data-id='${link.id}' id="link-${link.id}">
               Title:
               <p class='link-title'>${ link.title }</p>
               Url:
               <p class='link-url'>${ link.url }</p>
               <p>Read?</p>
-              <p class="link_read">
-                ${ link.read }
-              </p>
+              <p class="link_read">${ link.read }</p>
               <p class="link_buttons">
-                <button class="mark-read">Mark as Read</button>
+                <button class="mark-read">${ markAs }</button>
                 <button class='edit-link'>Edit</button>
                 <button class='delete-link'>Delete</button>
               </p>
+              *To edit link, double click on either title or url, changes are confirmed when clicking outside the text*
             </div>`
-            // <a href="${link.url}" class='link-url' target="_blank">${link.url}</a>
 }
 
 function clearLink() {
@@ -75,4 +80,55 @@ function clearLink() {
 function displayFailure(failureData){
   console.log("FAILED attempt to create new Link: " + failureData.responseText);
   $('#links-list').prepend("FAILED attempt to create new Link: " + failureData.responseText + "<br>");
+}
+
+function attachReadEvents(link) {
+  $(".mark-read").on("click", readChange)
+}
+
+function readChange(link) {
+  console.log("changin");
+  var id = $(this).closest(".link").data('id');
+  var parent = $(this).closest(".link");
+  var title = $(parent).find('.link-title').text();
+  var url = $(parent).find('.link-url').text();
+
+  var read = $(parent).find('.link_read').text();
+  if (read === "false") {read = "true"}
+  else if (read === "true") {read = "false"}
+
+  var markAs = $(this).text();
+  if (markAs === "Mark as Read") {markAs = "Mark as Unread"}
+  else if (markAs === "Mark as Unread") {markAs = "Mark as Read"}
+
+  $(parent).find('.link_read').text(read);
+  $(this).text(markAs);
+
+  if (read === "true") {
+    $(parent).find('.link-url').css("text-decoration","line-through");
+  } else {
+    $(parent).find('.link-url').css("text-decoration","none");
+  }
+
+  updateRead(read, id, title, url);
+}
+
+function updateRead(read, id, title, url) {
+  $.ajax({
+    url: `/api/v1/links/${id}`,
+    method: 'put',
+    data: {read: read}
+  })
+
+  // if (read === "true") {
+  //   console.log("reading true")
+  //   $.post({
+  //     url: 'http://localhost:3001/add_read',
+  //     data: {
+  //       title: title,
+  //       url: url
+  //     },
+  //     dataType: 'jsonp'
+  //   })
+  // }
 }
