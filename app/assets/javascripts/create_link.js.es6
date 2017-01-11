@@ -147,7 +147,7 @@ function updateRead(read, id, title, url) {
 }
 
 function attachHotEvents(link) {
-  $.get("http://localhost:3001/api/v1/links")
+  $.get("https://bheim6-hot-reads-final.herokuapp.com/api/v1/links")
   .then(function(links) {
     links.forEach( function(element) {
       if (element.title === link.title && links[0].title === link.title) {
