@@ -104,6 +104,12 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  def log_in_user
+    user = FactoryGirl.create(:user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    return user
+  end
+
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
