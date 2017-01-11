@@ -124,7 +124,6 @@ function updateRead(read, id, title, url) {
   })
 
   if (read === "true") {
-    console.log("reading true")
     $.post({
       url: 'http://localhost:3001/add_read',
       data: {
