@@ -1,5 +1,7 @@
 function attachSearchEvent() {
   $(".link-search-field").on('keyup', searchLinks)
+  $("#filter-read").on('click', filterRead)
+  $("#filter-unread").on('click', filterUnread)
 }
 
 function searchLinks() {
@@ -16,3 +18,23 @@ function searchLinks() {
     }
   })
 }
+
+function filterRead() {
+    $('.link').each(function(index, link) {
+      if (link.innerText.includes('true')) {
+        $(link).show()
+      } else {
+        $(link).hide()
+      }
+    })
+  }
+
+  function filterUnread() {
+      $('.link').each(function(index, link) {
+        if (link.innerText.includes('false')) {
+          $(link).show()
+        } else {
+          $(link).hide()
+        }
+      })
+    }
