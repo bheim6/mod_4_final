@@ -21,7 +21,7 @@ RSpec.describe "can create links", :js => :true do
     end
   end
 
-  skip scenario "Error message if invalid Url" do
+  scenario "Error message if invalid Url" do
     user1 = create(:user)
     visit '/'
     click_on "click here to Login"
