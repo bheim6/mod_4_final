@@ -16,6 +16,7 @@ function addLinks() {
   })
   .then(attachEditEvent)
   .then( attachReadEvents )
+  .then( attachSearchEvent )
   .fail( displayFailure )
 }
 
@@ -23,14 +24,13 @@ function addLinks() {
 function createLink (event){
   event.preventDefault();
 
-  console.log("win")
-
   var link = getLinkData();
 
   $.post("/api/v1/links", link)
    .then( renderLink )
    .then( attachEditEvent )
    .then( attachReadEvents )
+   .then( attachSearchEvent )
    .fail( displayFailure )
  }
 
@@ -44,6 +44,7 @@ function getLinkData() {
 function renderLink(link){
   $("#links-list").prepend( linkHTML(link) )
   clearLink();
+  attachHotEvents(link);
 }
 
 function linkHTML(link) {
@@ -57,6 +58,8 @@ function linkHTML(link) {
   };
 
     return `<div class='link' data-id='${link.id}' id="link-${link.id}">
+              <p id='hot'></p>
+              <p id='top'></p>
               Title:
               <p class='link-title'>${ link.title }</p>
               Url:
@@ -119,18 +122,17 @@ function updateRead(read, id, title, url) {
     method: 'put',
     data: {read: read}
   })
-  //
-  // if (read === "true") {
-  //   console.log("reading true")
-  //   $.post({
-  //     url: 'http://localhost:3001/add_read',
-  //     data: {
-  //       title: title,
-  //       url: url
-  //     },
-  //     dataType: 'jsonp'
-  //   })
-  // }
+
+  if (read === "true") {
+    $.post({
+      url: 'http://localhost:3001/add_read',
+      data: {
+        title: title,
+        url: url
+      },
+      dataType: 'jsonp'
+    })
+  }
 
   if (read === "true") {
     $.post({
@@ -142,4 +144,25 @@ function updateRead(read, id, title, url) {
       dataType: 'jsonp'
     })
   }
+}
+
+function attachHotEvents(link) {
+  $.get("http://localhost:3001/api/v1/links")
+  .then(function(links) {
+    links.forEach( function(element) {
+      if (element.title === link.title && links[0].title === link.title) {
+        makeTop(link);
+      } else if (element.title === link.title) {
+        makeHot(link);
+      }
+    })
+  })
+}
+
+function makeTop(link) {
+  $(`#link-${link.id} #top`).text('THE TOP LINK!')
+}
+
+function makeHot(link) {
+  $(`#link-${link.id} #hot`).text('HOT LINK!')
 }
